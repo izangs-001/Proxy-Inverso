@@ -1,4 +1,4 @@
-# Mi Documentación de la Práctica: Proxies con Nginx
+<img width="1920" height="852" alt="imagen" src="https://github.com/user-attachments/assets/eb9fd5f6-8de3-4fa0-8d96-ddb4e99f2706" /># Mi Documentación de la Práctica: Proxies con Nginx
 
 En este documento explico paso a paso todo lo que he hecho para montar la infraestructura, los comandos que he utilizado y los problemas que me han ido surgiendo por el camino.
 
@@ -20,7 +20,9 @@ He configurado el archivo `nginx/default.conf`. He definido un bloque `upstream`
 - **Por qué lo he hecho:** Para cumplir con el requisito de Round Robin. Al no especificar ningún método, Nginx reparte las peticiones una a cada uno por defecto.
 - **Mejora personal:** He añadido cabeceras personalizadas (`add_header`) para que el servidor me diga en todo momento qué IP de Apache me está respondiendo y si la respuesta viene de la caché o no. Esto me ha facilitado muchísimo las pruebas.
 
--- (Captura 2: El navegador mostrando la web después de que yo haya modificado el index.html, demostrando que ambos nodos comparten el volumen) --
+<img width="1655" height="738" alt="imagen" src="https://github.com/user-attachments/assets/e88d0df4-825e-4d35-9deb-a9990fc18248" />
+<img width="1627" height="836" alt="imagen" src="https://github.com/user-attachments/assets/6dd41f22-cb6a-4ed5-a039-ed569cb57b3f" />
+
 
 ## Paso 4: Orquestación con Docker Compose
 He escrito el archivo `docker-compose.yml` para levantar los tres contenedores a la vez: `apache1`, `apache2` y el `nginx_proxy`.
@@ -31,16 +33,15 @@ He comprobado que el balanceo funcionaba correctamente haciendo varias peticione
 - **Comando usado:** `curl -I http://localhost:8080`
 - **Lo que he observado:** Gracias a la cabecera `X-Backend-Server` que configuré antes, he podido ver cómo la IP del servidor de fondo iba cambiando en cada refresco de página.
 
--- (Captura 3: Cabeceras de respuesta en el navegador donde se ve la IP del primer servidor Apache) --
--- (Captura 4: Cabeceras de respuesta tras refrescar donde se ve que ahora responde la IP del segundo servidor Apache) --
+<img width="541" height="937" alt="imagen" src="https://github.com/user-attachments/assets/3ac03428-b59c-441d-bd3f-5203c8878ab4" />
+
 
 ## Paso 6: Configuración y prueba de la Memoria Caché
 Finalmente, he activado la caché en el proxy para que no tenga que pedirle siempre el contenido a los Apache.
 - **Problema encontrado:** Al probar con el navegador, a veces me salía siempre `MISS`. Me he dado cuenta de que el navegador enviaba peticiones pidiendo no usar caché.
 - **Solución:** He configurado Nginx para que ignore las cabeceras de control de caché del cliente y del servidor Apache (`proxy_ignore_headers`), obligándole a guardar el contenido durante 10 minutos.
 
--- (Captura 5: Cabecera X-Cache-Status mostrando MISS en la primera carga) --
--- (Captura 6: Cabecera X-Cache-Status mostrando HIT tras refrescar la página rápidamente) --
+
 
 ---
 **Realizado por:** Izan Gómez Solano
