@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  apache1:
+    image: httpd:alpine
+    container_name: apache1
+    volumes:
+      - ./html:/usr/local/apache2/htdocs/
+    networks:
+      - xarxa_practica
+
+  apache2:
+    image: httpd:alpine
+    container_name: apache2
+    volumes:
+      - ./html:/usr/local/apache2/htdocs/
+    networks:
+      - xarxa_practica
+
+  nginx_proxy:
+    image: nginx:alpine
+    container_name: nginx_proxy
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    # Hemos quitado el volumen de cache para evitar fallos de permisos en el host
+    depends_on:
+      - apache1
+      - apache2
+    networks:
+      - xarxa_practica
+
+networks:
+  xarxa_practica:
+    driver: bridge
