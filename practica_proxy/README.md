@@ -13,7 +13,7 @@ He creado un archivo `index.html` sencillo y un `style.css` para que la web no s
 - **Solución:** He usado `ffmpeg` para generar un vídeo de prueba de 5 segundos con un patrón de colores. Así me aseguro de que el proxy sirve correctamente archivos multimedia reales.
 - **Comando usado:** `ffmpeg -f lavfi -i testsrc=duration=5:size=640x360:rate=30 -c:v libx264 practica_proxy/html/video.mp4`
 
--- (Captura 1: Mi navegador mostrando la web completa con el título, la imagen y el vídeo reproduciéndose) --
+<img width="1277" height="1005" alt="imagen" src="https://github.com/user-attachments/assets/a8c72b7a-ff56-4f77-aa59-9f001935ec4c" />
 
 ## Paso 3: Configuración del Proxy Inverso y el Balanceo
 He configurado el archivo `nginx/default.conf`. He definido un bloque `upstream` llamado "backends" donde he metido los dos servidores Apache.
