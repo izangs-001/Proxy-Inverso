@@ -1,4 +1,4 @@
-<img width="1920" height="852" alt="imagen" src="https://github.com/user-attachments/assets/eb9fd5f6-8de3-4fa0-8d96-ddb4e99f2706" /># Mi Documentación de la Práctica: Proxies con Nginx
+# Mi Documentación de la Práctica: Proxies con Nginx
 
 En este documento explico paso a paso todo lo que he hecho para montar la infraestructura, los comandos que he utilizado y los problemas que me han ido surgiendo por el camino.
 
