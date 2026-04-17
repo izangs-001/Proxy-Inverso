@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  # Node web 1
+  apache1:
+    image: httpd:alpine
+    container_name: apache1
+    volumes:
+      - ./html:/usr/local/apache2/htdocs/
+    networks:
+      - xarxa_practica
+
+  # Node web 2
+  apache2:
+    image: httpd:alpine
+    container_name: apache2
+    volumes:
+      - ./html:/usr/local/apache2/htdocs/
+    networks:
+      - xarxa_practica
+
+  # Proxy Invers Nginx
+  nginx_proxy:
+    image: nginx:alpine
+    container_name: nginx_proxy
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - nginx_cache:/var/cache/nginx
+    depends_on:
+      - apache1
+      - apache2
+    networks:
+      - xarxa_practica
+
+networks:
+  xarxa_practica:
+    driver: bridge
+
+volumes:
+  nginx_cache:
